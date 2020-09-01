@@ -12,7 +12,7 @@ app.listen(PORT,() => console.log(" 🎉🎉🎉🎉 Server is running on port "
 
 app.use(bodyParser.json({type: ["application/json","application/x-www-form-urlencoded"]}));
 
-AppDB(`mongodb://localhost:27017/testEXAMPLE`);
+AppDB(`mongodb+srv://adrian:25251325zZ*@cluster0.vwqd2.mongodb.net/test`);
 
 routers(app);
 category__router(app);
