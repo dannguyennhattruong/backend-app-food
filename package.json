@@ -6,7 +6,8 @@
   "scripts": {
     "start:dev": "node index",
     "start:staging": "node index",
-    "start:production": "node ./dist/build/index"
+    "start:production": "node ./dist/build/index",
+    "start": "node index"
   },
   "keywords": [],
   "author": "",
