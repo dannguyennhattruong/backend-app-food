@@ -34,7 +34,7 @@ const sendEmail = (email, code, res) => {
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error)
-              res.send({
+            res.send({
                 message: `Lỗi`,
                 statusId: 'Server'
             })
@@ -111,6 +111,24 @@ app.post('/users', async (req, res) => {
     try {
         const users = await UserModel.find({});
         res.send(users);
+    } catch (error) {
+        res.send(error)
+    }
+})
+
+app.post('/user-active', async (req, res) => {
+    try {
+        const { id } = req.body;
+        const users = await UserModel.findOne({ _id: id });
+        if (!users) {
+            return res.send({
+                message: 'Không tìm thấy user !!'
+            })
+        }
+        const activeUser = await UserModel.findByIdAndUpdate(id, {
+            isActive: !users.isActive
+        }, { new: true });
+        res.send(activeUser);
     } catch (error) {
         res.send(error)
     }
