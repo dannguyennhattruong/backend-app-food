@@ -72,11 +72,18 @@ app.post('/signin', async (req, res) => {
     const { email, password } = req.body;
     const findUsers = await UserModel.findOne({ email });
     console.log(findUsers)
-    const findUser = findUsers.password === password;
-    if (findUser) {
-        res.send({
-            status: 'OK'
-        })
+    if (findUsers) {
+        const findUser = findUsers.password === password;
+        if (findUser) {
+            res.send({
+                status: 'OK'
+            })
+        }
+        else {
+            res.send({
+                status: 'Fail'
+            })
+        }
     }
     else {
         res.send({
@@ -85,7 +92,7 @@ app.post('/signin', async (req, res) => {
     }
 })
 
-app.post('/users', async (req,res) => {
+app.post('/users', async (req, res) => {
     try {
         const users = await UserModel.find({});
         res.send(users);
