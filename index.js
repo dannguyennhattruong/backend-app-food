@@ -90,19 +90,30 @@ app.post('/signin', async (req, res) => {
     if (findUsers) {
         const findUser = findUsers.password === password;
         if (findUser) {
-            res.send({
-                status: 'OK'
-            })
+            if(findUsers.isActive) {
+                res.send({
+                    status: 'OK',
+                    message : 'Đăng nhập thành công'
+                })
+            }
+            else {
+                res.send({
+                    status: 'Fail1',
+                    message : 'Tài khoản người dùng chưa được kích hoạt'
+                })
+            }
         }
         else {
             res.send({
-                status: 'Fail'
+                status: 'Fail2',
+                message : 'Mật khẩu không khớp với tài khoản'
             })
         }
     }
     else {
         res.send({
-            status: 'Fail'
+            status: 'Fail3',
+            message : 'Tài khoản chưa đăng ký'
         })
     }
 })
