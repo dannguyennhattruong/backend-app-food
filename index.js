@@ -93,7 +93,8 @@ app.post('/signin', async (req, res) => {
             if(findUsers.isActive) {
                 res.send({
                     status: 'OK',
-                    message : 'Đăng nhập thành công'
+                    message : 'Đăng nhập thành công',
+                    info : findUsers
                 })
             }
             else {
