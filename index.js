@@ -34,9 +34,15 @@ const sendEmail = (email, code, res) => {
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error)
-            //   res.send(error)
+              res.send({
+                message: `Lỗi`,
+                statusId: 'Server'
+            })
         } else {
-            res.send(info)
+            res.send({
+                message: `Thành công`,
+                statusId: 'Server'
+            })
             //   console.log(info)
         }
     });
@@ -63,9 +69,18 @@ app.get("", (req, res, next) => {
 
 app.post('/signup', async (req, res) => {
     const { email } = req.body;
-    const mycode = Math.floor(Math.random() * 100000);
-    sendEmail(email, mycode, res);
-    const user = await UserModel.create({ email, password: 'winter_' + mycode });
+    const findUser = UserModel.findOne({ email });
+    if (findUser) {
+        return res.send({
+            message: `Email ${email} đã tồn tại, vui lòng kiểm tra lại`,
+            statusId: 'Existed email'
+        })
+    }
+    else {
+        const mycode = Math.floor(Math.random() * 100000);
+        sendEmail(email, mycode, res);
+        const user = await UserModel.create({ email, password: 'winter_' + mycode });
+    }
 })
 
 app.post('/signin', async (req, res) => {
