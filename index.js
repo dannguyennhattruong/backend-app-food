@@ -69,7 +69,8 @@ app.get("", (req, res, next) => {
 
 app.post('/signup', async (req, res) => {
     const { email } = req.body;
-    const findUser = UserModel.findOne({ email });
+    const findUser = await UserModel.findOne({ email });
+    console.log(findUser)
     if (findUser) {
         return res.send({
             message: `Email ${email} đã tồn tại, vui lòng kiểm tra lại`,
