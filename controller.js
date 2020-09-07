@@ -89,7 +89,7 @@ module.exports = (app) => {
             console.log(error)
             res.status(400).send(error)
         }
-    })
+    }) 
 
     //UPDATE a food by id
     app.post('/update-food', async (req, res) => {
